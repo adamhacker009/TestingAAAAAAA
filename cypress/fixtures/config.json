@@ -1,0 +1,18 @@
+{
+  "url": "https://dev.profteam.su/",
+
+  "employer": {
+    "login": "testerEmployer",
+    "password": "Password1"
+  },
+  "student": {
+    "login": "testEmployer",
+    "password": "Password1"
+  },
+  "routes": {
+    "login": "login",
+    "needs": "account/needs",
+    "all_needs": "needs",
+    "responses": "account/responses"
+  }
+}
