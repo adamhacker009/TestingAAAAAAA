@@ -321,3 +321,53 @@ describe ('создание новой вакансии работодателе
             .click({timeout:1000})
     })
 })
+
+describe ('Негативные сценарии', ()=>{
+    beforeEach(function () {
+        cy.viewport(1920, 1080);
+        cy.fixture('config').then(goToNeeds)
+    })
+    it("Пустая строка с названием потребности", ()=>{
+        cy.log('Нажать кнопку на переход на страницу с потребностями')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav > div:nth-child(6)")
+            .click({timeout: 1000})
+        cy.log('Нажать кнопку для создание потребности')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav__mobile > div:nth-child(7) > section > div > div.needs-block__filters-wrapper > button")
+            .click({timeout: 1000})
+        cy.log('Попытка ввести пустую потребность')
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(1) > div > input")
+            .click({timeout:1000}).type("С{backspace}");
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(1) > div.form-error.form-error--responsive.form-error--.form-error-- > span")
+            .contains("Обязательное поле, максимум 255 символов")
+    })
+
+    it("Пустая строка с обзанностями", ()=>{
+        cy.log('Нажать кнопку на переход на страницу с потребностями')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav > div:nth-child(6)")
+            .click({timeout: 1000})
+        cy.log('Нажать кнопку для создание потребности')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav__mobile > div:nth-child(7) > section > div > div.needs-block__filters-wrapper > button")
+            .click({timeout: 1000})
+        cy.log('Попытка пустого ввода обязанности')
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(3) > div.form-control.form-control--max > textarea")
+            .click({timeout:1000}).type("С{backspace}");
+        cy.log('Проверка появления ошибки')
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(3) > div.form-error.form-error--.form-error--.form-error-- > span")
+            .contains("Обязательное поле, максимум 1000 символов")
+    })
+
+    it("Пустая строка с требованиями", ()=>{
+        cy.log('Нажать кнопку на переход на страницу с потребностями')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav > div:nth-child(6)")
+            .click({timeout: 1000})
+        cy.log('Нажать кнопку для создание потребности')
+        cy.get("#app > div.page > div > div.page-navigation > div.page-nav__mobile > div:nth-child(7) > section > div > div.needs-block__filters-wrapper > button")
+            .click({timeout: 1000})
+        cy.log('Попытка ввода пустого требования')
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(4) > div.form-control.form-control--max > textarea")
+            .click({timeout:1000}).type("С{backspace}");
+        cy.log('Проверка появления ошибки')
+        cy.get("body > div:nth-child(15) > div.desktop-modal > div > div.vacancy-need-wrapper > form > div:nth-child(1) > div.form__labels > div > div:nth-child(4) > div.form-error.form-error--.form-error--.form-error-- > span")
+            .contains("Обязательное поле, максимум 1000 символов")
+    })
+})
